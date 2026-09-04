@@ -223,6 +223,48 @@
   }
   .pay-card h3{font-size:24px; margin-bottom:10px;}
   .pay-card p{font-size:13px; color:var(--text-dim);}
+  .wallet-badge{
+    display:inline-block;
+    margin-top:14px;
+    font-size:11px;
+    letter-spacing:0.03em;
+    color:var(--gold);
+    border:1px solid var(--gold-dim);
+    padding:4px 10px;
+  }
+  .wallet-box{
+    margin-top:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--bg);
+    border:1px solid var(--border);
+    padding:10px 12px;
+  }
+  .wallet-address{
+    flex:1;
+    font-size:11.5px;
+    word-break:break-all;
+    color:var(--text);
+  }
+  .wallet-copy{
+    flex:0 0 auto;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    font-size:11px;
+    padding:6px 12px;
+    cursor:pointer;
+  }
+  .wallet-copy:hover{background:var(--text);}
+  .wallet-warning{
+    margin-top:12px;
+    font-size:11.5px;
+    color:var(--risk);
+    border-left:2px solid var(--risk);
+    padding-left:10px;
+    line-height:1.5;
+  }
   .pay-step{font-size:12.5px; color:var(--text-dim); margin-top:6px;}
   .pay-step .n{color:var(--gold);}
 
@@ -526,6 +568,12 @@
       <div class="pay-card">
         <h3>USDC</h3>
         <p>Stablecoin ancorata al dollaro — nessuna esposizione alla volatilità crypto durante il pagamento.</p>
+        <div class="wallet-badge">USDC · BEP-20 (BSC)</div>
+        <div class="wallet-box">
+          <span class="wallet-address">0x81741DcF6114250d8EAD9A84ADD61268C8049418</span>
+          <button class="wallet-copy" onclick="navigator.clipboard.writeText('0x81741DcF6114250d8EAD9A84ADD61268C8049418');this.textContent='Copiato';setTimeout(()=>this.textContent='Copia',1500);">Copia</button>
+        </div>
+        <div class="wallet-warning">⚠ Invia esclusivamente USDC sulla rete BSC (BEP-20) a questo indirizzo. Fondi inviati su altre reti (Ethereum, Tron, ecc.) o altri token andranno persi.</div>
       </div>
       <div class="pay-card">
         <h3>BTC</h3>
