@@ -283,6 +283,33 @@
     outline:none;
   }
   .email-input::placeholder{color:var(--text-dim); opacity:0.6;}
+
+  .order-form{
+    margin-top:32px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    max-width:480px;
+  }
+  .form-row{display:flex; flex-direction:column; gap:6px;}
+  .form-row label{font-size:12px; color:var(--text-dim);}
+  .form-row input, .form-row select{
+    background:var(--bg);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-family:'DM Mono', monospace;
+    font-size:13px;
+    padding:10px 12px;
+    outline:none;
+  }
+  .form-row input:focus, .form-row select:focus{border-color:var(--gold-dim);}
+  .order-form-status{
+    font-size:12.5px;
+    min-height:18px;
+  }
   .pay-step{font-size:12.5px; color:var(--text-dim); margin-top:6px;}
   .pay-step .n{color:var(--gold);}
 
@@ -607,20 +634,70 @@
     <div style="margin-top:32px;">
       <p class="pay-step"><span class="n">01 —</span> Scegli l'EA o il bundle e clicca su "Acquista in crypto"</p>
       <p class="pay-step"><span class="n">02 —</span> Invia l'importo esatto in USDC o BTCB (rete BSC/BEP-20) all'indirizzo qui sopra</p>
+      <p class="pay-step"><span class="n">03 —</span> Compila il modulo qui sotto con i dettagli dell'acquisto — ci arriva una notifica immediata</p>
+      <p class="pay-step"><span class="n">04 —</span> Verifichiamo il pagamento e ti inviamo il file EA, il set file e la guida tecnica all'email indicata</p>
     </div>
 
-    <div class="email-block">
-      <label for="buyer-email" class="email-label">03 — Indica l'email a cui inviare il file dopo la conferma</label>
-      <div class="wallet-box">
-        <input id="buyer-email" type="email" class="email-input" placeholder="tuaemail@esempio.com">
-        <button class="wallet-copy" onclick="var e=document.getElementById('buyer-email').value; if(e){navigator.clipboard.writeText('Email per ricevere il file: '+e); this.textContent='Copiato'; setTimeout(()=>this.textContent='Copia',1500);} else {this.textContent='Inserisci email'; setTimeout(()=>this.textContent='Copia',1500);}">Copia</button>
+    <form id="order-form" class="order-form" action="https://formspree.io/f/xkjnzovz" method="POST">
+      <div class="form-row">
+        <label for="buyer-product">EA o bundle acquistato</label>
+        <select id="buyer-product" name="prodotto" required>
+          <option value="" disabled selected>Seleziona...</option>
+          <option value="ArmiAma Lucrino">ArmiAma Lucrino (XAUUSD) — 250 USDC</option>
+          <option value="ArmiAma SwingHS Wyckoff">ArmiAma SwingHS Wyckoff (EURUSD+GBPJPY) — 250 USDC</option>
+          <option value="VIP ArmiAma Forex">VIP ArmiAma Forex — 1000 USDC</option>
+          <option value="VIP Plus">VIP Plus — 2000 USDC</option>
+        </select>
       </div>
-    </div>
+      <div class="form-row">
+        <label for="buyer-email-form">La tua email (dove riceverai il file)</label>
+        <input id="buyer-email-form" name="email" type="email" placeholder="tuaemail@esempio.com" required>
+      </div>
+      <div class="form-row">
+        <label for="buyer-wallet">Metodo di pagamento</label>
+        <select id="buyer-wallet" name="metodo_pagamento" required>
+          <option value="" disabled selected>Seleziona...</option>
+          <option value="USDC (BEP-20)">USDC (BEP-20)</option>
+          <option value="BTCB (BEP-20)">BTCB (BEP-20)</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="buyer-tx">Hash della transazione (TXID)</label>
+        <input id="buyer-tx" name="tx_hash" type="text" placeholder="Incolla qui l'hash della transazione">
+      </div>
+      <button type="submit" class="buy-btn" style="margin-top:8px;">Invia conferma d'acquisto</button>
+      <div id="order-form-status" class="order-form-status"></div>
+    </form>
 
-    <div style="margin-top:24px;">
-      <p class="pay-step"><span class="n">04 —</span> Scrivi su TikTok <a href="https://www.tiktok.com/@armiamaforex" target="_blank" style="color:var(--gold);">@armiamaforex</a> con lo screenshot o l'hash della transazione, quale EA o bundle hai acquistato e l'email indicata sopra</p>
-      <p class="pay-step"><span class="n">05 —</span> Al completamento della transazione, il file EA, il set file e la guida tecnica verranno inviati proprio a quell'indirizzo email</p>
-    </div>
+    <p style="font-size:11.5px;color:var(--text-dim);margin-top:20px;">In alternativa puoi scrivere su TikTok <a href="https://www.tiktok.com/@armiamaforex" target="_blank" style="color:var(--gold);">@armiamaforex</a> con lo screenshot della transazione.</p>
+
+    <script>
+      const orderForm = document.getElementById('order-form');
+      const orderStatus = document.getElementById('order-form-status');
+      orderForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        orderStatus.textContent = 'Invio in corso...';
+        orderStatus.style.color = 'var(--text-dim)';
+        try {
+          const response = await fetch(orderForm.action, {
+            method: 'POST',
+            body: new FormData(orderForm),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (response.ok) {
+            orderStatus.textContent = '✓ Ricevuto! Ti contatteremo via email dopo la verifica del pagamento.';
+            orderStatus.style.color = 'var(--gold)';
+            orderForm.reset();
+          } else {
+            orderStatus.textContent = 'Errore nell\'invio. Scrivici su TikTok con lo screenshot della transazione.';
+            orderStatus.style.color = 'var(--risk)';
+          }
+        } catch (err) {
+          orderStatus.textContent = 'Errore di connessione. Scrivici su TikTok con lo screenshot della transazione.';
+          orderStatus.style.color = 'var(--risk)';
+        }
+      });
+    </script>
   </div>
 </section>
 
