@@ -265,6 +265,24 @@
     padding-left:10px;
     line-height:1.5;
   }
+  .email-block{margin-top:24px;}
+  .email-label{
+    display:block;
+    font-size:12.5px;
+    color:var(--text-dim);
+    margin-bottom:10px;
+  }
+  .email-input{
+    flex:1;
+    background:transparent;
+    border:none;
+    color:var(--text);
+    font-family:'DM Mono', monospace;
+    font-size:13px;
+    padding:6px 0;
+    outline:none;
+  }
+  .email-input::placeholder{color:var(--text-dim); opacity:0.6;}
   .pay-step{font-size:12.5px; color:var(--text-dim); margin-top:6px;}
   .pay-step .n{color:var(--gold);}
 
@@ -562,7 +580,7 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Come funziona l'acquisto</h2>
-      <p>Pagamento in crypto, consegna digitale via email dopo la conferma della transazione.</p>
+      <p>Pagamento in crypto, consegna digitale via email all'indirizzo che indichi dopo la conferma della transazione.</p>
     </div>
     <div class="pay-grid">
       <div class="pay-card">
@@ -577,14 +595,31 @@
       </div>
       <div class="pay-card">
         <h3>BTC</h3>
-        <p>Pagamento diretto in Bitcoin, prezzo convertito al cambio del momento dell'ordine.</p>
+        <p>Pagamento in Bitcoin tramite BTCB — la versione BEP-20 di Bitcoin su Binance Smart Chain, stesso indirizzo dell'USDC.</p>
+        <div class="wallet-badge">BTCB · BEP-20 (BSC)</div>
+        <div class="wallet-box">
+          <span class="wallet-address">0x81741DcF6114250d8EAD9A84ADD61268C8049418</span>
+          <button class="wallet-copy" onclick="navigator.clipboard.writeText('0x81741DcF6114250d8EAD9A84ADD61268C8049418');this.textContent='Copiato';setTimeout(()=>this.textContent='Copia',1500);">Copia</button>
+        </div>
+        <div class="wallet-warning">⚠ Invia esclusivamente BTCB sulla rete BSC (BEP-20) a questo indirizzo — non Bitcoin nativo (rete BTC). Fondi inviati sulla rete Bitcoin originale o su altre reti andranno persi.</div>
       </div>
     </div>
     <div style="margin-top:32px;">
       <p class="pay-step"><span class="n">01 —</span> Scegli l'EA o il bundle e clicca su "Acquista in crypto"</p>
-      <p class="pay-step"><span class="n">02 —</span> Invia l'importo esatto in USDC (rete BSC/BEP-20) all'indirizzo qui sopra</p>
-      <p class="pay-step"><span class="n">03 —</span> Scrivi su TikTok <a href="https://www.tiktok.com/@armiamaforex" target="_blank" style="color:var(--gold);">@armiamaforex</a> con lo screenshot o l'hash della transazione, indicando quale EA o bundle hai acquistato</p>
-      <p class="pay-step"><span class="n">04 —</span> Ricevi via email il file EA, il set file e la guida tecnica dopo la conferma del pagamento</p>
+      <p class="pay-step"><span class="n">02 —</span> Invia l'importo esatto in USDC o BTCB (rete BSC/BEP-20) all'indirizzo qui sopra</p>
+    </div>
+
+    <div class="email-block">
+      <label for="buyer-email" class="email-label">03 — Indica l'email a cui inviare il file dopo la conferma</label>
+      <div class="wallet-box">
+        <input id="buyer-email" type="email" class="email-input" placeholder="tuaemail@esempio.com">
+        <button class="wallet-copy" onclick="var e=document.getElementById('buyer-email').value; if(e){navigator.clipboard.writeText('Email per ricevere il file: '+e); this.textContent='Copiato'; setTimeout(()=>this.textContent='Copia',1500);} else {this.textContent='Inserisci email'; setTimeout(()=>this.textContent='Copia',1500);}">Copia</button>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;">
+      <p class="pay-step"><span class="n">04 —</span> Scrivi su TikTok <a href="https://www.tiktok.com/@armiamaforex" target="_blank" style="color:var(--gold);">@armiamaforex</a> con lo screenshot o l'hash della transazione, quale EA o bundle hai acquistato e l'email indicata sopra</p>
+      <p class="pay-step"><span class="n">05 —</span> Al completamento della transazione, il file EA, il set file e la guida tecnica verranno inviati proprio a quell'indirizzo email</p>
     </div>
   </div>
 </section>
