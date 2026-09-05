@@ -239,6 +239,15 @@
     border:none;
   }
   .buy-btn:hover{background:var(--text);}
+  .buy-btn-pp{
+    display:block; text-align:center; text-decoration:none;
+    background:#0070ba; color:#fff;
+    font-family:'DM Mono',monospace; font-size:11px; font-weight:600;
+    letter-spacing:0.12em; text-transform:uppercase;
+    padding:11px 16px; margin-top:8px;
+    transition:background .2s;
+  }
+  .buy-btn-pp:hover{background:#005ea6;}
   .price-card.bundle{border-color:var(--gold-dim); background:var(--panel-2);}
 
   .risk-note{
@@ -460,7 +469,7 @@
     <span>XAUUSD LIVE TRACKED</span>
     <span>ARMIAMA LUCRINO — 12 STRATEGIE ATTIVE</span>
     <span>SWINGHS WYCKOFF — EURUSD / GBPJPY VALIDATI SU TICK REALI</span>
-    <span>PAGAMENTI IN USDC E BTC</span>
+    <span>PAGAMENTI IN USDC, BTC E PAYPAL</span>
     <span>CONSEGNA DIGITALE ISTANTANEA</span>
   </div>
 </div>
@@ -517,7 +526,7 @@
       <div class="hero-meta">
         <div><div class="num">2</div><div class="lbl">EA disponibili</div></div>
         <div><div class="num">3</div><div class="lbl">Profili di rischio per EA</div></div>
-        <div><div class="num">USDC/BTC</div><div class="lbl">Pagamento accettato</div></div>
+        <div><div class="num">USDC/BTC/PP</div><div class="lbl">Pagamento accettato</div></div>
       </div>
     </div>
   </div>
@@ -571,6 +580,7 @@
             <div class="plabel">LICENZA SINGOLA</div>
             <div class="pamount">250 USDC</div>
             <a class="buy-btn" href="#pagamenti">Acquista in crypto</a>
+          <a class="buy-btn-pp" href="https://www.paypal.com/qrcodes/managed/f7a6e90b-2677-497e-bdcc-cbe69c4dd585?utm_source=consweb_more" target="_blank" rel="noopener">🅿 Paga con PayPal / Carta</a>
           </div>
         </div>
         <div class="risk-note">Il trading con capitale reale comporta rischio di perdita. I risultati storici non garantiscono risultati futuri.</div>
@@ -621,6 +631,7 @@
             <div class="plabel">LICENZA (EURUSD + GBPJPY)</div>
             <div class="pamount">250 USDC</div>
             <a class="buy-btn" href="#pagamenti">Acquista in crypto</a>
+          <a class="buy-btn-pp" href="https://www.paypal.com/qrcodes/managed/f7a6e90b-2677-497e-bdcc-cbe69c4dd585?utm_source=consweb_more" target="_blank" rel="noopener">🅿 Paga con PayPal / Carta</a>
           </div>
         </div>
         <div class="risk-note">Validazione condotta su dati storici e tick reali dove disponibili. Il trading con capitale reale comporta rischio di perdita.</div>
@@ -664,12 +675,14 @@
         <div class="pamount">1000 USDC</div>
         <div style="font-size:12.5px;color:var(--text-dim);margin-bottom:16px;">Accesso a vita a tutti gli EA MT5 ArmiAma Forex, presenti e futuri, senza pagarli singolarmente</div>
         <a class="buy-btn" href="#pagamenti">Acquista in crypto</a>
+          <a class="buy-btn-pp" href="https://www.paypal.com/qrcodes/managed/f7a6e90b-2677-497e-bdcc-cbe69c4dd585?utm_source=consweb_more" target="_blank" rel="noopener">🅿 Paga con PayPal / Carta</a>
       </div>
       <div class="price-card bundle">
         <div class="plabel">VIP PLUS</div>
         <div class="pamount">2000 USDC</div>
         <div style="font-size:12.5px;color:var(--text-dim);margin-bottom:16px;">Tutto il VIP ArmiAma Forex, più tutti gli indicatori TradingView e i codici sorgente MQL5 degli EA</div>
         <a class="buy-btn" href="#pagamenti">Acquista in crypto</a>
+          <a class="buy-btn-pp" href="https://www.paypal.com/qrcodes/managed/f7a6e90b-2677-497e-bdcc-cbe69c4dd585?utm_source=consweb_more" target="_blank" rel="noopener">🅿 Paga con PayPal / Carta</a>
       </div>
     </div>
     <div class="risk-note">Il trading con capitale reale comporta rischio di perdita. I risultati storici non garantiscono risultati futuri.</div>
@@ -706,7 +719,22 @@
       </div>
     </div>
     <div style="margin-top:32px;">
-      <p class="pay-step"><span class="n">01 —</span> Scegli l'EA o il bundle e clicca su "Acquista in crypto"</p>
+
+      <div class="pay-card" style="margin-top:24px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <span style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#0070ba; letter-spacing:0.08em;">PayPal</span>
+          <span style="font-size:10px; color:var(--text-dim); letter-spacing:0.12em; text-transform:uppercase;">Carta di credito / debito accettata</span>
+        </div>
+        <p>Paga con PayPal o direttamente con carta di credito/debito — nessun conto PayPal necessario. Dopo il pagamento invia la conferma via email o Telegram con il prodotto scelto.</p>
+        <a href="https://www.paypal.com/qrcodes/managed/f7a6e90b-2677-497e-bdcc-cbe69c4dd585?utm_source=consweb_more" target="_blank" rel="noopener"
+           style="display:inline-block; margin-top:16px; background:#0070ba; color:#fff;
+                  font-family:'DM Mono',monospace; font-size:11px; font-weight:600;
+                  letter-spacing:0.12em; text-transform:uppercase; padding:13px 28px;
+                  text-decoration:none; transition:background .2s;">
+          🅿 Vai al pagamento PayPal
+        </a>
+      </div>
+      <p class="pay-step"><span class="n">01 —</span> Scegli l'EA o il bundle e clicca su "Acquista in crypto" o "Paga con PayPal / Carta"</p>
       <p class="pay-step"><span class="n">02 —</span> Invia l'importo esatto in USDC o BTCB (rete BSC/BEP-20) all'indirizzo qui sopra</p>
       <p class="pay-step"><span class="n">03 —</span> Compila il modulo qui sotto con i dettagli dell'acquisto — ci arriva una notifica immediata</p>
       <p class="pay-step"><span class="n">04 —</span> Verifichiamo il pagamento e ti inviamo il file EA, il set file e la guida tecnica all'email indicata</p>
@@ -733,6 +761,7 @@
           <option value="" disabled selected>Seleziona...</option>
           <option value="USDC (BEP-20)">USDC (BEP-20)</option>
           <option value="BTCB (BEP-20)">BTCB (BEP-20)</option>
+          <option value="PayPal">PayPal / Carta</option>
         </select>
       </div>
       <div class="form-row">
