@@ -141,14 +141,15 @@
     nav .links a:last-child{border-bottom:none;}
     .has-submenu{display:block;}
     .nav-sub-toggle{
-      display:block; width:100%; text-align:left; margin-left:0;
+      display:flex; align-items:center; justify-content:space-between;
+      width:100%; text-align:left; margin-left:0;
       padding:16px 4px; font-size:15px; border-bottom:1px solid var(--border);
     }
-    .has-submenu:hover .nav-submenu{
+    .nav-submenu{display:none;}
+    .has-submenu.open .nav-submenu{
       display:block; position:static; transform:none; box-shadow:none;
       border:none; background:none; padding:0 0 0 16px; min-width:0;
     }
-    .nav-submenu{display:block;}
     .nav-submenu li a{
       padding:14px 4px; font-size:14px; border-bottom:1px solid var(--border);
     }
@@ -774,6 +775,9 @@
     navBurger.classList.remove('open');
     navLinks.classList.remove('open');
     navOverlay.classList.remove('open');
+    document.querySelectorAll('.has-submenu.open').forEach(function(el){
+      el.classList.remove('open');
+    });
   }
   navBurger.addEventListener('click', function(){
     navBurger.classList.toggle('open');
@@ -783,6 +787,14 @@
   navOverlay.addEventListener('click', closeNav);
   navLinks.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', closeNav);
+  });
+  navLinks.querySelectorAll('.nav-sub-toggle').forEach(function(toggle){
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      var wrapper = toggle.closest('.has-submenu');
+      var isOpen = wrapper.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
   });
 })();
 </script>
