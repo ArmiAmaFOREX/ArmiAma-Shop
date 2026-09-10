@@ -525,6 +525,18 @@
     padding-left:10px;
     line-height:1.5;
   }
+  /* Payment method chips */
+  .pm-chips{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 16px;}
+  .pm-chip{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:8px 14px; border-radius:20px;
+    font-family:'DM Mono',monospace; font-size:11.5px; font-weight:600;
+  }
+  .pm-chip.card{background:rgba(237,231,218,0.1); color:var(--text); border:1px solid var(--border);}
+  .pm-chip.paypal{background:rgba(0,112,186,0.15); color:#4ea9e6; border:1px solid rgba(0,112,186,0.35);}
+  .pm-chip.gpay{background:rgba(66,133,244,0.12); color:#8ab4fa; border:1px solid rgba(66,133,244,0.3);}
+  .pm-chip.apple{background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.25);}
+
   .email-block{margin-top:24px;}
   .email-label{
     display:block;
@@ -572,6 +584,39 @@
   }
   .pay-step{font-size:12.5px; color:var(--text-dim); margin-top:6px;}
   .pay-step .n{color:var(--gold);}
+
+  /* How-it-works step flow */
+  .steps-flow{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:0;
+    margin-top:40px; position:relative;
+  }
+  .steps-flow::before{
+    content:''; position:absolute; top:24px; left:12.5%; right:12.5%; height:1px;
+    background:linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    z-index:0;
+  }
+  .step-item{position:relative; z-index:1; padding:0 16px; text-align:center;}
+  .step-num{
+    width:48px; height:48px; margin:0 auto 18px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg); border:2px solid var(--gold);
+    font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--gold);
+    box-shadow:0 0 0 6px var(--panel);
+  }
+  .step-item h4{
+    font-family:'Bebas Neue',sans-serif; font-size:17px; letter-spacing:0.03em;
+    color:var(--text); margin:0 0 8px;
+  }
+  .step-item p{font-size:12.5px; color:var(--text-dim); line-height:1.55; margin:0;}
+  @media (max-width:820px){
+    .steps-flow{grid-template-columns:1fr; gap:28px;}
+    .steps-flow::before{
+      top:0; bottom:0; left:24px; right:auto; width:1px; height:auto;
+      background:linear-gradient(180deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+    .step-item{display:flex; align-items:flex-start; gap:18px; text-align:left; padding:0;}
+    .step-num{margin:0; flex:0 0 auto;}
+  }
 
   footer{padding:40px 0; text-align:center;}
   footer p{font-size:12px; color:var(--text-dim);}
@@ -1131,52 +1176,68 @@
       <h2>Come funziona l'acquisto</h2>
       <p>Pagamento in crypto, consegna digitale via email all'indirizzo che indichi dopo la conferma della transazione.</p>
     </div>
-    <div class="pay-grid">
-      <div class="pay-card">
-        <h3>USDC</h3>
-        <p>Stablecoin ancorata al dollaro — nessuna esposizione alla volatilità crypto durante il pagamento.</p>
-        <div class="wallet-badge">USDC · BEP-20 (BSC)</div>
-        <div class="wallet-box">
-          <span class="wallet-address" title="0x81741DcF6114250d8EAD9A84ADD61268C8049418">0x81741D…049418</span>
-          <button class="wallet-copy" onclick="navigator.clipboard.writeText('0x81741DcF6114250d8EAD9A84ADD61268C8049418');this.textContent='Copiato';setTimeout(()=>this.textContent='Copia',1500);">Copia</button>
-        </div>
-        <div class="wallet-warning">⚠ Invia esclusivamente USDC sulla rete BSC (BEP-20) a questo indirizzo. Fondi inviati su altre reti (Ethereum, Tron, ecc.) o altri token andranno persi.</div>
+    <div class="pay-card" style="max-width:640px;">
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+        <h3 style="margin:0;">Wallet crypto</h3>
+        <span class="wallet-badge" style="margin:0;">USDC</span>
+        <span class="wallet-badge" style="margin:0;">BTCB</span>
+        <span class="wallet-badge" style="margin:0; color:var(--text-dim); border-color:var(--border);">Rete BSC · BEP-20</span>
       </div>
-      <div class="pay-card">
-        <h3>BTC</h3>
-        <p>Pagamento in Bitcoin tramite BTCB — la versione BEP-20 di Bitcoin su Binance Smart Chain, stesso indirizzo dell'USDC.</p>
-        <div class="wallet-badge">BTCB · BEP-20 (BSC)</div>
-        <div class="wallet-box">
-          <span class="wallet-address" title="0x81741DcF6114250d8EAD9A84ADD61268C8049418">0x81741D…049418</span>
-          <button class="wallet-copy" onclick="navigator.clipboard.writeText('0x81741DcF6114250d8EAD9A84ADD61268C8049418');this.textContent='Copiato';setTimeout(()=>this.textContent='Copia',1500);">Copia</button>
-        </div>
-        <div class="wallet-warning">⚠ Invia esclusivamente BTCB sulla rete BSC (BEP-20) a questo indirizzo — non Bitcoin nativo (rete BTC). Fondi inviati sulla rete Bitcoin originale o su altre reti andranno persi.</div>
+      <p>Stesso indirizzo per entrambe le valute — nessuna esposizione alla volatilità durante il pagamento.</p>
+      <div class="wallet-box">
+        <span class="wallet-address" title="0x81741DcF6114250d8EAD9A84ADD61268C8049418">0x81741D…049418</span>
+        <button class="wallet-copy" onclick="navigator.clipboard.writeText('0x81741DcF6114250d8EAD9A84ADD61268C8049418');this.textContent='Copiato';setTimeout(()=>this.textContent='Copia',1500);">Copia</button>
       </div>
+      <div class="wallet-warning">⚠ Invia esclusivamente USDC o BTCB sulla rete <strong>BSC (BEP-20)</strong> a questo indirizzo. BTCB non è Bitcoin nativo: fondi inviati su altre reti (Ethereum, Tron, rete Bitcoin originale, ecc.) o altri token andranno persi.</div>
     </div>
     <div style="margin-top:32px;">
 
       <div class="pay-card" style="margin-top:24px;">
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-          <span style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#0070ba; letter-spacing:0.08em;">Carta · PayPal · G Pay · Apple Pay</span>
-          <span style="font-size:10px; color:var(--text-dim); letter-spacing:0.12em; text-transform:uppercase;">Nessun account richiesto</span>
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <h3 style="margin:0; font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--text); letter-spacing:0.03em;">Carta o wallet digitale</h3>
+          <span class="wallet-badge" style="margin:0; color:#4ea9e6; border-color:rgba(0,112,186,0.4);">Nessun account PayPal richiesto</span>
         </div>
-        <p>Paga con <strong style="color:#fff;">carta di credito/debito</strong>, <strong style="color:#fff;">Google Pay</strong> o <strong style="color:#fff;">Apple Pay</strong> — nessun account PayPal necessario. Il metodo disponibile appare automaticamente in base al tuo dispositivo: Google Pay su Android/Chrome, Apple Pay su iPhone/Safari. Dopo il pagamento invia la conferma via email o Telegram specificando il prodotto scelto.</p>
+        <div class="pm-chips">
+          <span class="pm-chip card">💳 Carta</span>
+          <span class="pm-chip paypal">🅿️ PayPal</span>
+          <span class="pm-chip gpay">G Pay</span>
+          <span class="pm-chip apple"> Apple Pay</span>
+        </div>
+        <p>Il metodo disponibile appare automaticamente in base al tuo dispositivo: Google Pay su Android/Chrome, Apple Pay su iPhone/Safari. Dopo il pagamento invia la conferma via email o Telegram specificando il prodotto scelto.</p>
         <a href="https://www.paypal.me/armicus" target="_blank" rel="noopener"
-           style="display:inline-flex; align-items:center; gap:8px; margin-top:16px;
+           style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:18px; width:100%;
                   background:linear-gradient(135deg, #1a9ce6 0%, #0070ba 100%); color:#fff;
-                  font-family:'DM Mono',monospace; font-size:11px; font-weight:700;
-                  letter-spacing:0.1em; text-transform:uppercase; padding:14px 28px;
+                  font-family:'DM Mono',monospace; font-size:12px; font-weight:700;
+                  letter-spacing:0.08em; text-transform:uppercase; padding:15px 0;
                   text-decoration:none; box-shadow:0 6px 16px rgba(0,112,186,0.3);
                   transition:transform .2s ease, box-shadow .2s ease;"
            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 22px rgba(0,112,186,0.45)';"
            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 16px rgba(0,112,186,0.3)';">
-          💳 Carta · PayPal · G Pay · Apple Pay <span style="font-size:13px;">→</span>
+          Paga ora <span style="font-size:14px;">→</span>
         </a>
       </div>
-      <p class="pay-step"><span class="n">01 —</span> Scegli l'EA o il bundle e clicca su "Acquista ora"</p>
-      <p class="pay-step"><span class="n">02 —</span> Invia l'importo esatto in USDC o BTCB (rete BSC/BEP-20) all'indirizzo qui sopra</p>
-      <p class="pay-step"><span class="n">03 —</span> Compila il modulo qui sotto con i dettagli dell'acquisto — ci arriva una notifica immediata</p>
-      <p class="pay-step"><span class="n">04 —</span> Verifichiamo il pagamento e ti inviamo il file EA, il set file e la guida tecnica all'email indicata</p>
+      <div class="steps-flow">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <h4>Scegli e acquista</h4>
+          <p>Seleziona l'EA o il bundle e clicca su "Acquista ora"</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <h4>Invia il pagamento</h4>
+          <p>Trasferisci l'importo esatto in USDC o BTCB (rete BSC/BEP-20) all'indirizzo qui sopra</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <h4>Conferma l'ordine</h4>
+          <p>Compila il modulo qui sotto con i dettagli — ci arriva una notifica immediata</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <h4>Ricevi il pacchetto</h4>
+          <p>Verifichiamo il pagamento e ti inviamo file EA, set file e guida tecnica via email</p>
+        </div>
+      </div>
     </div>
 
     <form id="order-form" class="order-form" action="https://formspree.io/f/xkjnzovz" method="POST">
