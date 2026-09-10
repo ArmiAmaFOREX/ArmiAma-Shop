@@ -429,6 +429,45 @@
 
   /* Payment section */
   .pay-grid{display:flex; gap:24px; flex-wrap:wrap;}
+
+  /* Indicatori TradingView — preview cards */
+  .ind-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px;}
+  .ind-card{
+    border:1px solid var(--border); background:var(--panel); padding:22px;
+    position:relative; overflow:hidden;
+  }
+  .ind-card::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--gold-dim), var(--gold));
+  }
+  .ind-card h3{
+    font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:0.03em;
+    color:var(--text); margin:0 0 10px;
+  }
+  .ind-card p{font-size:13px; color:var(--text-dim); line-height:1.6; margin:0 0 14px;}
+  .ind-soon{
+    display:inline-block; font-family:'DM Mono',monospace; font-size:10px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-dim);
+    border:1px solid var(--gold-dim); padding:4px 10px;
+  }
+  .ind-club-banner{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    border:1px solid var(--gold); background:rgba(212,160,23,0.08);
+    padding:20px 24px; margin-bottom:28px;
+  }
+  .ind-club-banner p{
+    margin:0; font-size:13.5px; color:var(--text); max-width:600px;
+  }
+  .ind-club-banner p strong{color:var(--gold);}
+  .ind-club-banner a{
+    flex:0 0 auto; display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg, var(--gold-light,#e8c874) 0%, var(--gold) 100%);
+    color:#171410; text-decoration:none; font-family:'DM Mono',monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    padding:12px 20px; box-shadow:0 6px 16px rgba(201,162,39,0.25);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .ind-club-banner a:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(201,162,39,0.4);}
   .pay-card{
     flex:1; min-width:260px;
     background:var(--panel);
@@ -662,7 +701,7 @@
     <div class="links" id="navLinks">
       <a href="https://armiamaforex.github.io/armiamaforex">Home</a>
       <div class="has-submenu">
-        <button class="nav-sub-toggle" aria-expanded="false">Expert Advisors ▾</button>
+        <button class="nav-sub-toggle" aria-expanded="false">EA MT5 ▾</button>
         <ul class="nav-submenu">
           <li><a href="#lucrino">Lucrino</a></li>
           <li><a href="#swinghs-eur">SwingHS EURUSD</a></li>
@@ -671,6 +710,7 @@
           <li><a href="#sorrento">Sorrento 1.1</a></li>
         </ul>
       </div>
+      <a href="#indicatori">Indicatori TradingView</a>
       <a href="#vip">Forex Club</a>
       <a href="#pagamenti">Pagamenti</a>
     </div>
@@ -982,6 +1022,53 @@
           </div>
         </div>
         <div class="risk-note">Il trading con capitale reale comporta rischio di perdita. I risultati storici non garantiscono risultati futuri.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="indicatori">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Indicatori TradingView</h2>
+      <p>Strumenti Pine Script sviluppati da ArmiAma Forex per l'analisi smart money, i pivot e le fasce di volatilità.</p>
+    </div>
+
+    <div class="ind-club-banner">
+      <p>Tutti gli indicatori TradingView sono inclusi esclusivamente nel pacchetto <strong>Forex Club Plus</strong> — non sono acquistabili singolarmente.</p>
+      <a href="#vip">Vai a Forex Club Plus →</a>
+    </div>
+
+    <div class="ind-grid">
+      <div class="ind-card">
+        <h3>Caserta [ArmiAma]</h3>
+        <p>Sistema combinato di trend e segnale: unisce Caserta Trail (EMA+ATR), AI Signal Remastered (Keltner Channel Supertrend) e la nuvola NUVOLA SMF, con punteggio di qualità a 8 fattori e classificazione A/B/C.</p>
+        <span class="ind-soon">Solo Forex Club Plus</span>
+      </div>
+      <div class="ind-card">
+        <h3>NUVOLA (v5.x)</h3>
+        <p>Overlay Smart Money Flow con Fibonacci pivot-based, correlazione macro DXY/EURUSD, stato di retest (IDLE → WAIT RETEST → IN RETEST), punteggio a 4 punti e alert compatibili con Sicily BOX.</p>
+        <span class="ind-soon">Solo Forex Club Plus</span>
+      </div>
+      <div class="ind-card">
+        <h3>IFVG ArmiAma Forex</h3>
+        <p>Rilevamento di Fair Value Gap e Inverse FVG, con alert in formato JSON compatibili con Sicily BOX per l'automazione dei segnali.</p>
+        <span class="ind-soon">Solo Forex Club Plus</span>
+      </div>
+      <div class="ind-card">
+        <h3>Pivot + FVG Entry</h3>
+        <p>Unisce il bias direzionale dei pivot con gli ingressi su FVG, con filtro EMA, filtro ADX, filtro sessione dedicato a FP Markets (UTC+3) e conferma multi-timeframe.</p>
+        <span class="ind-soon">Solo Forex Club Plus</span>
+      </div>
+      <div class="ind-card">
+        <h3>REVERSAL</h3>
+        <p>Individua inversioni su pivot zigzag con conferma tramite Squeeze Momentum, logica anti-duplicati e conferma d'ingresso sul pullback.</p>
+        <span class="ind-soon">Solo Forex Club Plus</span>
+      </div>
+      <div class="ind-card">
+        <h3>TRINITY FLOW</h3>
+        <p>Oscillatore che combina RSI, Stocastico e Williams %R con zone di ipercomprato/ipervenduto dinamiche, bias multi-timeframe e filtro di correlazione DXY/EURUSD.</p>
+        <span class="ind-soon">Solo Forex Club Plus</span>
       </div>
     </div>
   </div>
