@@ -203,6 +203,8 @@
     background:var(--panel);
     border:1px solid var(--border);
     margin-bottom:32px;
+    transition:transform .15s ease-out, box-shadow .15s ease-out;
+    will-change:transform;
   }
   .dossier-head{
     display:flex; justify-content:space-between; align-items:flex-end;
@@ -365,6 +367,8 @@
     border-color:var(--gold-dim); background:var(--panel-2);
     position:relative; overflow:hidden;
     padding-top:28px;
+    transition:transform .15s ease-out, box-shadow .15s ease-out;
+    will-change:transform;
   }
   .price-card.bundle::before{
     content:''; position:absolute; top:0; left:0; right:0; height:4px;
@@ -436,6 +440,8 @@
   .ind-card{
     border:1px solid var(--border); background:var(--panel); padding:22px;
     position:relative; overflow:hidden;
+    transition:transform .15s ease-out, box-shadow .15s ease-out;
+    will-change:transform;
   }
   .ind-card::before{
     content:''; position:absolute; top:0; left:0; right:0; height:3px;
@@ -1196,6 +1202,31 @@
     <p>ArmiAma Forex — © 2026. Contatti: <a href="https://www.tiktok.com/@armiamaforex" target="_blank">@armiamaforex</a></p>
   </div>
 </footer>
+
+
+<!-- Tilt 3D leggero su card EA, indicatori e pacchetti -->
+<script>
+(function(){
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var els = document.querySelectorAll('.dossier, .price-card.bundle, .ind-card');
+  els.forEach(function(el){
+    el.addEventListener('mousemove', function(e){
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      var rx = (-y * 4).toFixed(2);
+      var ry = (x * 4).toFixed(2);
+      el.style.transform = 'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-3px)';
+      el.style.boxShadow = '0 18px 34px rgba(0,0,0,0.35)';
+    });
+    el.addEventListener('mouseleave', function(){
+      el.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
+      el.style.boxShadow = 'none';
+    });
+  });
+})();
+</script>
 
 <!-- TELEGRAM FLOATING BUTTON -->
 <a href="https://t.me/Armicus" target="_blank" rel="noopener" class="telegram-float" aria-label="Scrivimi su Telegram">
